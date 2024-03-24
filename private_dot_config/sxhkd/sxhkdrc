@@ -1,0 +1,71 @@
+# terminal emulator + swith current node to biggest
+super + {_, ctrl + }Return
+	{gnome-terminal, bspc node -s biggest.local}
+
+# program launcher
+super + p
+	~/.config/rofi/launchers/type-1/launcher.sh
+
+# make sxhkd reload its configuration files:
+super + ctrl + {r}
+	pkill -USR1 -x sxhkd
+
+# quit/restart bspwm
+super + shift + Escape
+	bspc {quit,wm -r}
+
+# close and kill
+super + q
+	bspc node -c
+
+# alternate between the tiled and monocle layout
+super + {m, space}
+	bspc desktop -l next
+
+# focus the node in the given direction
+super + {_,shift + }{Left,Down,Up,Right}
+    bspc node -{f,s} {west,south,north,east}
+
+# focus the next/previous window in the current desktop
+super + {j,k}
+	bspc node -f {prev,next}.local.!hidden.window
+
+# Focus or send to the given desktop (AZERTY)
+super + {_,shift + }{ampersand,eacute,quotedbl,apostrophe,parenleft,minus,egrave,underscore,ccedilla,agrave}
+	bspc {desktop -f, node -d} focused:'^{1-9,10}'
+
+# Expand a window to the right
+super + ctrl + Right
+    bspc node -z right 80 0
+
+# Contract a window from the right
+super + ctrl + Left
+    bspc node -z right -80 0
+
+# lock pc
+super + {_, shift +} l
+	~/.config/i3lock/i3lock_custom.sh
+
+super + shift + s 
+	maim -s | xclip -selection clipboard -t image/png
+
+super + Tab	
+	bspc monitor --focus next
+
+super + e
+	nautilus
+
+XF86MonBrightnessUp
+    bash -c 'pgrep redshift && (pkill redshift) || (redshift -l 48.856613:2.352222 -t 4500:4500 -b 1 -m randr)'
+
+# Increase volume
+XF86AudioRaiseVolume
+    amixer set Master 5%+
+
+# Decrease volume
+XF86AudioLowerVolume
+    amixer set Master 5%-
+
+# Toggle mute
+XF86AudioMute
+    amixer set Master toggle

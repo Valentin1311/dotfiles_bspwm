@@ -1,0 +1,102 @@
+# Customizing the prompt
+format = """
+$username\
+$hostname\
+$kubernetes\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$hg_branch\
+$docker_context\
+$package\
+$cmake\
+$deno\
+$golang\
+$helm\
+$java\
+$nodejs\
+$python\
+$rust\
+$scala\
+$terraform\
+$vagrant\
+$conda\
+$aws\
+$gcloud\
+$env_var\
+$custom\
+$sudo\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$character"""
+
+
+[character]
+success_symbol = '[](bold green)'
+error_symbol = '[](bold red)'
+
+[kubernetes]
+disabled = false
+style = 'purple'
+
+# Configure if and how the time is shown
+[time]
+disabled = false
+time_format = "%T"
+format = "🕙 [$time ](bold blue)"
+
+[sudo]
+disabled = false
+
+[aws]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[java]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[package]
+symbol = " "
+disabled = true
+
+[python]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[scala]
+symbol = " "

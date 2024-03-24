@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if ! updates=$(apt list --upgradable 2>/dev/null | grep -v "Listing..." | wc -l); then
+    updates=0
+fi
+
+echo $updates
