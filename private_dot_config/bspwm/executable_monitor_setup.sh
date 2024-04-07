@@ -55,4 +55,4 @@ if [[ $1 != "--reload" ]]; then
 fi
 
 ~/.config/polybar/hack/launch.sh
-feh --bg-scale ~/.config/wallpaper/moebius.png &
+feh --bg-scale ~/.config/wallpaper/minimalist.png &

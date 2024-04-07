@@ -7,8 +7,12 @@ super + p
 	~/.config/rofi/launchers/type-1/launcher.sh
 
 # make sxhkd reload its configuration files:
-super + ctrl + {r}
+super + ctrl + r
 	pkill -USR1 -x sxhkd
+
+# Restart bspwm
+super + shift + r
+	bspc wm -r
 
 # quit/restart bspwm
 super + shift + Escape
@@ -27,12 +31,8 @@ super + {_,shift + }{Left,Down,Up,Right}
     bspc node -{f,s} {west,south,north,east}
 
 # move the focused window to the next monitor
-super + ctrl + Up
-    bspc node -m next
-
-# move the focused window to the previous monitor
-super + ctrl + Down
-    bspc node -m prev
+super + n
+	~/.config/sxhkd/switch_monitors.sh
 
 # focus the next/previous window in the current desktop
 super + {j,k}
@@ -66,7 +66,7 @@ super + e
 
 # night shift
 XF86MonBrightnessUp
-    bash -c 'pgrep redshift && (pkill redshift) || (redshift -l 48.856613:2.352222 -t 4500:4500 -b 1 -m randr)'
+	bash -c 'pgrep redshift && (pkill redshift) || (redshift -l 48.856613:2.352222 -t 4500:4500 -b 1 -m randr); current_brightness=$(brightnessctl g); max_brightness=$(brightnessctl m); new_brightness=$(($current_brightness - $max_brightness / 4)); brightnessctl s $new_brightness'
 
 # Increase volume
 XF86AudioRaiseVolume
