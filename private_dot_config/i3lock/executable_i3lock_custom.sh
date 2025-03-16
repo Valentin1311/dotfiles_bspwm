@@ -2,16 +2,10 @@
 
 BLANK='#00000000'
 CLEAR='#ffffff22'
-DEFAULT='#3949AB' 
-# 3949AB deep blue
-# 8B0063 pink
-TEXT='#5C6BC0'
-# 5C6BC0 deep blue
-# CF0395 pink 
-WRONG='#880000bb'
-VERIFYING='#5C6BC0'
-# 5C6BC0 deep blue
-# CF0395 pinkm
+DEFAULT='#FFC107'  # Warm yellow (Material Design Amber)
+TEXT='#FFB300'     # Slightly darker orange-yellow for readability
+WRONG='#FF5722'    # Soft red-orange for errors
+VERIFYING='#FFA000' # Slightly deeper yellow-orange for verifying state
 
 i3lock \
 --insidever-color=$CLEAR     \

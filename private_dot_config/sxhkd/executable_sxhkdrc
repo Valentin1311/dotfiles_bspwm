@@ -2,6 +2,7 @@
 super + {_, ctrl + }Return
 	{gnome-terminal, bspc node -s biggest.local}
 
+
 # program launcher
 super + p
 	~/.config/rofi/launchers/type-1/launcher.sh
@@ -26,9 +27,11 @@ super + q
 super + {m, space}
 	bspc desktop -l next
 
-# focus the node in the given direction
+# focus the node in the given direction and move the mouse to the center of the focused window
 super + {_,shift + }{Left,Down,Up,Right}
-    bspc node -{f,s} {west,south,north,east}
+    bspc node -{f,s} {west,south,north,east}; \
+	xdotool mousemove --window $(bspc query -N -n focused) --polar 0 0
+
 
 # move the focused window to the next monitor
 super + n
@@ -39,7 +42,7 @@ super + {j,k}
 	bspc node -f {prev,next}.local.!hidden.window
 
 # Focus or send to the given desktop (AZERTY)
-super + {_,shift + }{ampersand,eacute,quotedbl,apostrophe,parenleft,minus,egrave,underscore,ccedilla,agrave}
+super + {_,shift + }{1,2,3,4,5,6,7,8,9,0}
 	bspc {desktop -f, node -d} focused:'^{1-9,10}'
 
 # Expand a window to the right
@@ -65,17 +68,17 @@ super + e
 	nautilus
 
 # night shift
-XF86MonBrightnessUp
+F4
 	bash -c 'pgrep redshift && (pkill redshift) || (redshift -l 48.856613:2.352222 -t 4500:4500 -b 1 -m randr); current_brightness=$(brightnessctl g); max_brightness=$(brightnessctl m); new_brightness=$(($current_brightness - $max_brightness / 4)); brightnessctl s $new_brightness'
 
 # Increase volume
-XF86AudioRaiseVolume
+F12
     amixer set Master 5%+
 
 # Decrease volume
-XF86AudioLowerVolume
+F11
     amixer set Master 5%-
 
 # Toggle mute
-XF86AudioMute
-    amixer set Master toggle
+F10
+	amixer set Master toggle

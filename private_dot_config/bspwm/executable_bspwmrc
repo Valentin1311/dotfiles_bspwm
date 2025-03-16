@@ -1,16 +1,13 @@
 #!/bin/bash
 
-# Azerty layout
-setxkbmap fr
-
 #Keyring
 eval $(gnome-keyring-daemon --start --components=ssh)
 export SSH_AUTH_SOCK
 
 # Natural scrolling
 # Click on touchpad
-xinput set-prop 10 328 1
-xinput --set-prop 10 351 1
+xinput set-prop 11 353 1
+xinput --set-prop 11 376 1
 
 # zxhkd
 pgrep -x sxhkd > /dev/null || sxhkd -c ~/.config/sxhkd/sxhkdrc &
@@ -41,10 +38,9 @@ bspc config remove_disabled_monitors true
 bspc config border_width 2
 bspc config focused_border_color "#ffffff"
 
-bspc config window_gap 10
+bspc config window_gap 15
 bspc config pointer_follows_monitor true
 
 bspc config split_ratio 0.5
 
-bspc config top_padding 37
-
+bspc config top_padding 40
