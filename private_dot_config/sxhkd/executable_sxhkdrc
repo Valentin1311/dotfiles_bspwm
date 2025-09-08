@@ -1,7 +1,6 @@
-# terminal emulator + swith current node to biggest
-super + {_, ctrl + }Return
-	{gnome-terminal, bspc node -s biggest.local}
-
+# terminal
+super + Return
+	gnome-terminal
 
 # program launcher
 super + p
@@ -27,34 +26,45 @@ super + q
 super + {m, space}
 	bspc desktop -l next
 
-# focus the node in the given direction and move the mouse to the center of the focused window
-super + {_,shift + }{Left,Down,Up,Right}
-    bspc node -{f,s} {west,south,north,east}; \
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
 	xdotool mousemove --window $(bspc query -N -n focused) --polar 0 0
 
+super + {_,shift + }{Left,Down,Up,Right}
+	bspc node -{f,s} {west,south,north,east}
+	xdotool mousemove --window $(bspc query -N -n focused) --polar 0 0
 
 # move the focused window to the next monitor
-super + n
+super + b
 	~/.config/sxhkd/switch_monitors.sh
-
-# focus the next/previous window in the current desktop
-super + {j,k}
-	bspc node -f {prev,next}.local.!hidden.window
 
 # Focus or send to the given desktop (AZERTY)
 super + {_,shift + }{1,2,3,4,5,6,7,8,9,0}
 	bspc {desktop -f, node -d} focused:'^{1-9,10}'
 
 # Expand a window to the right
-super + ctrl + Right
+super + ctrl + Right 
     bspc node -z right 80 0
 
 # Contract a window from the right
 super + ctrl + Left
     bspc node -z right -80 0
 
+# Expand a window to the right
+super + ctrl + l 
+    bspc node -z right 80 0
+
+# Contract a window from the right
+super + ctrl + h
+    bspc node -z right -80 0
+
+# focus next window in current node
+super + n
+    bspc node -f next.local.!hidden.window
+
 # lock pc
-super + {_, shift +} l
+super + shift + b
 	~/.config/i3lock/i3lock_custom.sh
 
 # screenshot
@@ -68,17 +78,5 @@ super + e
 	nautilus
 
 # night shift
-F4
+super + ctrl + n
 	bash -c 'pgrep redshift && (pkill redshift) || (redshift -l 48.856613:2.352222 -t 4500:4500 -b 1 -m randr); current_brightness=$(brightnessctl g); max_brightness=$(brightnessctl m); new_brightness=$(($current_brightness - $max_brightness / 4)); brightnessctl s $new_brightness'
-
-# Increase volume
-F12
-    amixer set Master 5%+
-
-# Decrease volume
-F11
-    amixer set Master 5%-
-
-# Toggle mute
-F10
-	amixer set Master toggle

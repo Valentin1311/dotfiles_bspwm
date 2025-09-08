@@ -1,4 +1,4 @@
-# # If you come from bash you might have to change your $PATH.
+#alias cat="batcat" # If you come from bash you might have to change your $PATH.
 # # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # # Path to your oh-my-zsh installation.
@@ -10,7 +10,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # # load a random theme each time oh-my-zsh is loaded, in which case,
 # # to know which specific one was loaded, run: echo $RANDOM_THEME
 # # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# # ZSH_THEME="robbyrussell"
+#ZSH_THEME="spaceship"
 eval "$(starship init zsh)"
 
 # # Set list of themes to pick from when loading at random
@@ -73,7 +73,7 @@ eval "$(starship init zsh)"
 # # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # # Example format: plugins=(rails git textmate ruby lighthouse)
 # # Add wisely, as too many plugins slow down shell startup.
-plugins=(git npm yarn aws colored-man-pages colorize command-not-found common-aliases docker docker-compose kubectl zsh-autosuggestions history zsh-syntax-highlighting emoji pip)
+plugins=(git npm yarn aws colored-man-pages colorize command-not-found common-aliases docker docker-compose kubectl zsh-autosuggestions history zsh-syntax-highlighting emoji pip copybuffer dotenv)
 
 source $ZSH/oh-my-zsh.sh
 source setup_env_helm_stratumn.sh
@@ -81,6 +81,9 @@ source setup_env_helm_stratumn.sh
 # # User configuration
 
 # # export MANPATH="/usr/local/man:$MANPATH"
+
+# Man pages using neovim
+export MANPAGER='nvim +Man!'
 
 # # You may need to manually set your language environment
 # # export LANG=en_US.UTF-8
@@ -104,15 +107,6 @@ source setup_env_helm_stratumn.sh
 # # alias zshconfig="mate ~/.zshrc"
 # # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# #My aliases
-alias k="kubectl"
-alias kgp="kubectl get pods"
-alias ktx="kubectl ctx"
-alias kns="kubectl ns"
-alias pn="pnpm"
-alias do="docker"
-alias dps="docker ps -a"
-alias poul="git pull"
 # Only for minikube
 # alias kubectl="minikube kubectl --"
 
@@ -122,8 +116,9 @@ alias poul="git pull"
 export SU_PASSWORD=adminpass
 
 # # Kube Configuration
-export KUBE_EDITOR="code -w"
-export EDITOR="nano"
+# export KUBE_EDITOR="code -w"
+export KUBE_EDITOR="nvim"
+export EDITOR="nvim"
 
 alias giphon="/usr/bin/env python3 -m giphon"
 
@@ -133,7 +128,7 @@ alias giphon="/usr/bin/env python3 -m giphon"
 export PATH="/opt/nvim-linux64/bin:$JAVA_HOME/bin:/usr/local/aws-cli/v2/2.15.40/bin:~/.kubectx:${KREW_ROOT:-$HOME/.krew}/bin:/home/linuxbrew/.linuxbrew/opt/postgresql@11/bin:$PATH"
 
 # # Pywal theme
-(cat ~/.cache/wal/sequences &)
+# (cat ~/.cache/wal/sequences &)
 
 # # tabtab source for serverless package
 # # uninstall by removing these lines or running `tabtab uninstall serverless`
@@ -147,7 +142,12 @@ vpn() {
   bash vpn.sh
 }
 
-go() {
+ssm() {
+  cd $HOME/stratumn/platform/infrastructure/scripts
+  bash ssm.sh
+}
+
+goo() {
   case "$1" in
     stratumn|strat|s)
       cd $HOME/stratumn
@@ -196,7 +196,7 @@ go() {
 }
 
 op() {
-case "$1" in
+  case "$1" in
     mono|m)
       cd $HOME/stratumn/platform/stratumn && cursor .
       ;;
@@ -215,6 +215,33 @@ case "$1" in
         cd "$HOME/stratumn/platform/infrastructure/$1" && cursor .
       elif [ -d "$HOME/stratumn/platform/tools/$1" ]; then
         cd "$HOME/stratumn/platform/tools/$1" && cursor .
+      else
+        cd $HOME
+      fi
+      ;;
+  esac
+}
+
+opv() {
+  case "$1" in
+    mono|m)
+      cd $HOME/stratumn/platform/stratumn && nvim .
+      ;;
+    *)  # default case for unrecognized parameters
+      if [ -d "$1" ]; then
+        cd "$1" && nvim .
+      elif [ -d "$HOME/stratumn/platform/backend/$1" ]; then
+        cd "$HOME/stratumn/platform/backend/$1" && nvim .
+      elif [ -d "$HOME/stratumn/platform/frontend/$1" ]; then
+        cd "$HOME/stratumn/platform/frontend/$1" && nvim .
+      elif [ -d "$HOME/stratumn/configuration/$1" ]; then
+        cd "$HOME/stratumn/configuration/$1" && nvim .
+      elif [ -d "$HOME/stratumn/platform/kubernetes/$1" ]; then
+        cd "$HOME/stratumn/platform/kubernetes/$1" && nvim .
+      elif [ -d "$HOME/stratumn/platform/infrastructure/$1" ]; then
+        cd "$HOME/stratumn/platform/infrastructure/$1" && nvim .
+      elif [ -d "$HOME/stratumn/platform/tools/$1" ]; then
+        cd "$HOME/stratumn/platform/tools/$1" && nvim .
       else
         cd $HOME
       fi
@@ -244,7 +271,22 @@ if [ -d "$FNM_PATH" ]; then
   eval "`fnm env`"
 fi
 
+#GO
+export PATH=$PATH:/usr/local/go/bin
+
 # This alias runs the Cursor Setup Wizard, simplifying installation and configuration.
 # For more details, visit: https://github.com/jorcelinojunior/cursor-setup-wizard
 alias cursor-setup="/home/valentin/cursor-setup-wizard/cursor_setup.sh"
 
+# #My aliases
+alias k="kubectl"
+alias kgp="kubectl get pods"
+alias ktx="kubectl ctx"
+alias kns="kubectl ns"
+alias pn="pnpm"
+alias do="docker"
+alias v="nvim"
+alias bat="batcat"
+alias cat="batcat"
+alias find="fd"
+alias ls="exa -alh"

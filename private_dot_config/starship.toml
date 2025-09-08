@@ -1,38 +1,18 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
 # Customizing the prompt
 format = """
-$username\
-$hostname\
-$kubernetes\
+valentin \
 $directory\
 $git_branch\
-$git_commit\
-$git_state\
-$git_metrics\
-$git_status\
-$hg_branch\
-$docker_context\
-$package\
-$cmake\
-$deno\
-$golang\
-$helm\
-$java\
-$nodejs\
-$python\
-$rust\
-$scala\
-$terraform\
-$vagrant\
-$conda\
-$aws\
-$gcloud\
-$env_var\
-$custom\
-$sudo\
-$cmd_duration\
-$jobs\
-$status\
 $character"""
+
+[[battery.display]]
+threshold = 100
+
+
+[directory]
+
 
 [character]
 success_symbol = '[](bold green)'
